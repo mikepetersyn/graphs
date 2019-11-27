@@ -27,9 +27,10 @@ public class EdgeListScanner {
     // and returns an object of EdgeListGraph
 
     public EdgeListGraph scan(){
-
+        // initialize edgeList and number of Edges
         ArrayList<Edge> edgeList = new ArrayList<>();
-
+        int numberVertices = 0;
+        // open scanner util and read the edgelist
         {
             try {
                 scanner = new Scanner(file);
@@ -40,14 +41,14 @@ public class EdgeListScanner {
         int i = 0;
         while(scanner.hasNextInt()){
             if (i == 0){
-                System.out.println(scanner.nextInt());
+                numberVertices = scanner.nextInt();
                 i++;
             }
-            //System.out.println(scanner.nextInt() + " " + scanner.nextInt());
             edgeList.add(new Edge(scanner.nextInt(), scanner.nextInt()));
         }
-
+        // create graph from edgelist and set its number of edges
         EdgeListGraph elg = new EdgeListGraph(edgeList);
+        elg.setNumberVertices(numberVertices);
 
         return elg;
     }
