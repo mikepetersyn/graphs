@@ -44,7 +44,7 @@ public class EdgeListScanner {
                 numberVertices = scanner.nextInt();
                 i++;
             }
-            edgeList.add(new Edge(scanner.nextInt(), scanner.nextInt()));
+            edgeList.add(new Edge(new Vertex(scanner.nextInt()), new Vertex(scanner.nextInt())));
         }
         // create graph from edgelist and set its number of edges
         EdgeListGraph elg = new EdgeListGraph(edgeList);

@@ -2,27 +2,27 @@ package graph;
 
 public class Edge {
 
-    private int vA;
-    private int vB;
+    private Vertex vA;
+    private Vertex vB;
 
-    public Edge(int vA, int vB) {
+    public Edge(Vertex vA, Vertex vB) {
         this.vA = vA;
         this.vB = vB;
     }
 
-    public int getvA() {
+    public Vertex getvA() {
         return vA;
     }
 
-    public int getvB() {
+    public Vertex getvB() {
         return vB;
     }
 
-    public void setvA(int vA) {
+    public void setvA(Vertex vA) {
         this.vA = vA;
     }
 
-    public void setvB(int vB) {
+    public void setvB(Vertex vB) {
         this.vB = vB;
     }
 
