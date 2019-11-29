@@ -2,25 +2,25 @@ import graph.*;
 
 public class Main {
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
-        EdgeListScanner scanner = new EdgeListScanner("/home/mikep/code_local/graphs/exercise-1/files/k3_3.txt");
+        final String EXPORTPATH = "/home/mike/graphs/exercise-1/exports/";
 
-        EdgeListGraph elg = scanner.scan();
+        EdgeListScanner k3_3 = new EdgeListScanner("/home/mike/graphs/exercise-1/files/k3_3.txt");
+        
+        EdgeListGraph edgeListGraph = k3_3.scan();
+        edgeListGraph.setExportPath(EXPORTPATH);
 
-        IncidenceMatrixGraph img = new IncidenceMatrixGraph(elg);
+        IncidenceMatrixGraph incidenceMatrixGraph = new IncidenceMatrixGraph(edgeListGraph);
+        incidenceMatrixGraph.setExportPath(EXPORTPATH);
 
-        AdjacenceMatrixGraph amg = new AdjacenceMatrixGraph(elg);
+        AdjacenceMatrixGraph adjacenceMatrixGraph = new AdjacenceMatrixGraph(edgeListGraph);
+        adjacenceMatrixGraph.setExportPath(EXPORTPATH);
 
-        AdjacenceListGraph alg = new AdjacenceListGraph(elg);
+        AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph);
+        adjacenceListGraph.setExportPath(EXPORTPATH);
 
-        elg.export(elg.getEdgeList(),"edgeListGraph");
-
-        elg.export(img.convertToEdgeList(img.getIncidenceMatrix()), "incidenceMatrixGraph");
-
-        elg.export(amg.convertToEdgeList(amg.getAdjacenceMatrix()), "adjacenceMatrixGraph");
-
-        elg.export(alg.convertToEdgeList(alg.getAdjacenceList()), "adjacenceListGraph");
+        adjacenceListGraph.exportGraph(adjacenceListGraph.convertToEdgeList());
 
     }
 

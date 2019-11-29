@@ -2,33 +2,33 @@ package graph;
 
 public class Vertex {
 
-    public Vertex(int verticeNumber) {
-        this.verticeNumber = verticeNumber;
+    private int vertexName;
+
+    private boolean vertexColor;
+
+    public Vertex(int vertexName) {
+        this.vertexName = vertexName;
     }
 
-    public Vertex(int verticeNumber, boolean color) {
-        this.verticeNumber = verticeNumber;
-        this.color = color;
+    public Vertex(int vertexName, boolean vertexColor) {
+        this.vertexName = vertexName;
+        this.vertexColor = vertexColor;
     }
 
-    private int verticeNumber;
-
-    private boolean color;
-
-    public int getVerticeNumber() {
-        return verticeNumber;
+    public int getVertexName() {
+        return vertexName;
     }
 
-    public void setVerticeNumber(int verticeNumber) {
-        this.verticeNumber = verticeNumber;
+    public void setVertexName(int vertexName) {
+        this.vertexName = vertexName;
     }
 
-    public boolean isColor() {
-        return color;
+    public boolean getVertexColor() {
+        return vertexColor;
     }
 
-    public void setColor(boolean color) {
-        this.color = color;
+    public void setVertexColor(boolean vertexColor) {
+        this.vertexColor = vertexColor;
     }
 
 }
