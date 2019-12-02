@@ -6,6 +6,12 @@ public class EdgeListGraph extends Graph {
 
     public EdgeListGraph() {
         this.edgeList = new ArrayList<>();
+        super.isDirected = false;
+    }
+
+    public EdgeListGraph(boolean isDirected) {
+        this.edgeList = new ArrayList<>();
+        super.isDirected = isDirected;
     }
 
     public EdgeListGraph(ArrayList<Edge> edgeList) {

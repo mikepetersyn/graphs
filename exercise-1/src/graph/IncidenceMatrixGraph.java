@@ -7,6 +7,13 @@ public class IncidenceMatrixGraph extends Graph {
     public IncidenceMatrixGraph(EdgeListGraph elg) {
         init(elg.getNumberVertices(), elg.getNumberEdges());
         convertFromEdgeList(elg.getEdgeList());
+        super.isDirected = false;
+    }
+
+    public IncidenceMatrixGraph(EdgeListGraph elg, boolean isDirected) {
+        init(elg.getNumberVertices(), elg.getNumberEdges());
+        convertFromEdgeList(elg.getEdgeList());
+        super.isDirected = isDirected;
     }
 
     private ArrayList<ArrayList<Integer>> incidenceMatrix = new ArrayList<ArrayList<Integer>>();

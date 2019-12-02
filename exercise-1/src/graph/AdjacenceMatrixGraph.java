@@ -14,6 +14,13 @@ public class AdjacenceMatrixGraph extends Graph {
     public AdjacenceMatrixGraph(EdgeListGraph elg) {
         init(elg.getNumberVertices());
         convertFromEdgeList(elg.getEdgeList());
+        super.isDirected = false;
+    }
+
+    public AdjacenceMatrixGraph(EdgeListGraph elg, boolean isDirected) {
+        init(elg.getNumberVertices());
+        convertFromEdgeList(elg.getEdgeList());
+        super.isDirected = isDirected;
     }
 
     private void init(int numberVertices) {
@@ -39,7 +46,6 @@ public class AdjacenceMatrixGraph extends Graph {
                 if (this.adjacenceMatrix.get(i).get(j) == 1) {
                     edgeList.add(new Edge(new Vertex(i + 1), new Vertex(j + 1)));
                 }
-
             }
         }
         return edgeList;

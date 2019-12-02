@@ -1,3 +1,5 @@
+import java.lang.reflect.Field;
+
 import graph.*;
 
 public class Main {
@@ -17,11 +19,10 @@ public class Main {
         AdjacenceMatrixGraph adjacenceMatrixGraph = new AdjacenceMatrixGraph(edgeListGraph);
         adjacenceMatrixGraph.setExportPath(EXPORTPATH);
 
-        AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph);
+        AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph, true);
         adjacenceListGraph.setExportPath(EXPORTPATH);
 
         adjacenceListGraph.exportGraph(adjacenceListGraph.convertToEdgeList());
-
     }
 
 }

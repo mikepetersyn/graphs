@@ -14,6 +14,13 @@ public class AdjacenceListGraph extends Graph {
     public AdjacenceListGraph(EdgeListGraph elg){
         init(elg.getNumberVertices());
         convertFromEdgeList(elg.getEdgeList());
+        super.isDirected = false;
+    }
+
+    public AdjacenceListGraph(EdgeListGraph elg, boolean isDirected){
+        init(elg.getNumberVertices());
+        convertFromEdgeList(elg.getEdgeList());
+        super.isDirected = isDirected;
     }
 
     private void init(int numberVertices) {

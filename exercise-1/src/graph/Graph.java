@@ -10,12 +10,16 @@ public class Graph implements GraphExporter {
 
     private int numberVertices;
 
-    private boolean isDirected;
+    protected boolean isDirected;
 
     private String exportPath;
 
     public Graph() {
         this.isDirected = false;
+    }
+
+    public Graph(boolean isDirected) {
+        this.isDirected = isDirected;
     }
 
     public int getNumberVertices() {
@@ -25,6 +29,8 @@ public class Graph implements GraphExporter {
     public void setNumberVertices(int numberVertices) {
         this.numberVertices = numberVertices;
     }
+
+    
 
     @Override
     public void setExportPath(String exportPath) {
@@ -44,6 +50,7 @@ public class Graph implements GraphExporter {
         String graphName = scanner.nextLine();
         String filePath = this.exportPath + graphName + ".gv";
         File tmpDir = new File(filePath);
+        String edgeSymbol = "";
 
         while (nameNotUnique) {
 
@@ -64,10 +71,14 @@ public class Graph implements GraphExporter {
         }
 
         try {
+            if (this.isDirected){
+                edgeSymbol = " -> ";
+            } else edgeSymbol = " -- ";
+
             FileWriter writer = new FileWriter(filePath, false);
             writer.write(("Graph " + graphName + " { \n"));
             for (int i = 0; i < edgeList.size(); i++) {
-                writer.write(edgeList.get(i).getVertexA().getVertexName() + " -- "
+                writer.write(edgeList.get(i).getVertexA().getVertexName() + edgeSymbol
                         + edgeList.get(i).getVertexB().getVertexName() + " \n");
             }
             writer.write("}");
