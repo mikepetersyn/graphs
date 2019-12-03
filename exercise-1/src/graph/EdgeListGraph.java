@@ -18,6 +18,11 @@ public class EdgeListGraph extends Graph {
         this.edgeList = edgeList;
     }
 
+    public EdgeListGraph(ArrayList<Edge> edgeList, boolean isDirected) {
+        this.edgeList = edgeList;
+        super.isDirected = isDirected;
+    }
+
     private ArrayList<Edge> edgeList;
 
     public ArrayList<Edge> getEdgeList() {
@@ -34,6 +39,10 @@ public class EdgeListGraph extends Graph {
 
     public void addEdge(Edge e) {
         edgeList.add(e);
+    }
+
+    public void inverseAllEdges() {
+        this.edgeList.forEach(edge -> edge.swapVertices());
     }
 
 }

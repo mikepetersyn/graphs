@@ -26,4 +26,10 @@ public class Edge {
         this.vertexB = vertexB;
     }
 
+    public void swapVertices(){
+        Vertex tmp = this.vertexA;
+        this.vertexA = this.vertexB;
+        this.vertexB = tmp;
+    }
+
 }
