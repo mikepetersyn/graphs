@@ -4,10 +4,13 @@ public class Vertex {
 
     private int vertexName;
 
+    // false -> white color
+    // true -> black color
     private boolean vertexColor;
 
     public Vertex(int vertexName) {
         this.vertexName = vertexName;
+        this.vertexColor = false;
     }
 
     public Vertex(int vertexName, boolean vertexColor) {

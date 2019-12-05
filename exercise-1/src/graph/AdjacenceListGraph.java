@@ -1,5 +1,6 @@
 package graph;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,16 @@ public class AdjacenceListGraph extends Graph {
 
     public ArrayList<ArrayList<Vertex>> getAdjacenceList() {
         return adjacenceList;
+    }
+
+    public Vertex returnRandomVertex (){
+        SecureRandom sr = new SecureRandom();
+        int boundEdges = getAdjacenceList().size();
+        ArrayList<Vertex> selectedVerticeList = getAdjacenceList().get(sr.nextInt(boundEdges));
+        while (selectedVerticeList.size() == 0){
+            selectedVerticeList = getAdjacenceList().get(sr.nextInt(boundEdges));
+        }
+        return selectedVerticeList.get(sr.nextInt(selectedVerticeList.size()));
     }
 
     public AdjacenceListGraph(EdgeListGraph elg){

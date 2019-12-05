@@ -11,9 +11,9 @@ public class Main {
         EdgeListGraph edgeListGraph = k3_3.scan();
         edgeListGraph.setExportPath(EXPORTPATH);
 
-        EdgeListGraph inverseEdgeListGraph = new EdgeListGraph(edgeListGraph.getEdgeList(), true);
-        inverseEdgeListGraph.inverseAllEdges();
-        inverseEdgeListGraph.setExportPath(EXPORTPATH);
+        //EdgeListGraph inverseEdgeListGraph = new EdgeListGraph(edgeListGraph.getEdgeList(), true);
+        //inverseEdgeListGraph.inverseAllEdges();
+        //inverseEdgeListGraph.setExportPath(EXPORTPATH);
 
         //IncidenceMatrixGraph incidenceMatrixGraph = new IncidenceMatrixGraph(edgeListGraph);
         //incidenceMatrixGraph.setExportPath(EXPORTPATH);
@@ -21,9 +21,13 @@ public class Main {
         //AdjacenceMatrixGraph adjacenceMatrixGraph = new AdjacenceMatrixGraph(edgeListGraph);
         //adjacenceMatrixGraph.setExportPath(EXPORTPATH);
 
-        //AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph, true);
-        //adjacenceListGraph.setExportPath(EXPORTPATH);
+        AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph, true);
+        adjacenceListGraph.setExportPath(EXPORTPATH);
 
-        inverseEdgeListGraph.exportGraph(inverseEdgeListGraph.getEdgeList());
+        //adjacenceListGraph.exportGraph(adjacenceListGraph.convertToEdgeList());
+        Vertex a = adjacenceListGraph.returnRandomVertex();
+        System.out.println(a.getVertexName());
+
+
     }
 }
