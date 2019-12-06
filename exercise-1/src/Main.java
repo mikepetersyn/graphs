@@ -6,7 +6,7 @@ public class Main {
     public static void main(String args[]) {
 
         final String EXPORTPATH = "/home/mike/graphs/exercise-1/exports/";
-        final String IMPORTPATH = "/home/mikep/code_local/graphs/exercise-1/files/primkruskal.txt";
+        final String IMPORTPATH = "/home/mike/graphs/exercise-1/files/primkruskal.txt";
 
         EdgeListScanner primkrustal = new EdgeListScanner(IMPORTPATH);
 
@@ -33,6 +33,10 @@ public class Main {
         // adjacenceListGraph.exportGraph(adjacenceListGraph.convertToEdgeList());
         Kruskal kruskal = new Kruskal(edgeListGraph);
         kruskal.printEdgeList();
-
+        kruskal.getVerticeSet();
+        kruskal.calcMinSpanningTree();
+        EdgeListGraph minimalSpanningTree = new EdgeListGraph(kruskal.getMstEdgeList());
+        minimalSpanningTree.setExportPath(EXPORTPATH);
+        minimalSpanningTree.exportGraph(minimalSpanningTree.getEdgeList());
     }
 }

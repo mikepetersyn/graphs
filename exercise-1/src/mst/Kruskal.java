@@ -9,12 +9,35 @@ import graph.EdgeListGraph;
 import graph.Vertex;
 
 public class Kruskal {
-    private TreeSet<Vertex> setToDrawFrom;
-    private TreeSet<Vertex> setToAddTo;
-    private UnionFind<Vertex> unionFind;
-    // is sorted by Weight after constructor call
+
+    private UnionFind<Integer> verticeSet;
     private ArrayList<Edge> edgeList;
     private ArrayList<Edge> mstEdgeList;
+
+    public Kruskal(EdgeListGraph edgeListGraph) {
+        this.edgeList = edgeListGraph.sortEdgeListByWeight(edgeListGraph.getEdgeList());
+        this.verticeSet = new UnionFind<Integer>(new TreeSet<Integer>(edgeListGraph.returnEdgeListAsVertexNameList()));
+        this.mstEdgeList = new ArrayList<Edge>();
+    }
+
+    public ArrayList<Edge> getMstEdgeList() {
+        return mstEdgeList;
+    }
+
+    public UnionFind<Integer> getVerticeSet() {
+        return verticeSet;
+    }
+
+    public void calcMinSpanningTree() {
+        for (Edge edge : this.edgeList) {
+            int a = edge.getVertexA().getVertexName();
+            int b = edge.getVertexB().getVertexName();
+            if (!(this.verticeSet.inSameSet(a, b))) {
+                this.mstEdgeList.add(edge);
+                this.verticeSet.union(a, b);
+            }
+        }
+    }
 
     public void printEdgeList() {
         for (Edge edge : this.edgeList) {
@@ -23,27 +46,4 @@ public class Kruskal {
         }
     }
 
-    public Kruskal(EdgeListGraph edgeListGraph) {
-        this.edgeList = edgeListGraph.sortEdgeListByWeight(edgeListGraph.getEdgeList());
-        this.setToDrawFrom = new TreeSet<Vertex>(edgeListGraph.returnEdgeListAsVertexList(this.edgeList));
-        this.setToAddTo = new TreeSet<>();
-        this.unionFind = new UnionFind<Vertex>(this.setToAddTo);
-    }
-
-    public void doIt() {
-        // take each edge from edgeList, edges with lower weight first
-        for (Edge edge : this.edgeList) {
-            // check if both vertices from edge are already in unionFind
-            if (!(this.unionFind.inSameSet(edge.getVertexA(), edge.getVertexB()))) {
-                // - if not then add this edge to the spanning
-                // tree graph and add its vertices to the unionFind
-                this.mstEdgeList.add(edge);
-                unionFind.addElement(edge.getVertexA());
-                unionFind.addElement(edge.getVertexB());
-            }
-            // - if yes then skip -> else would create loop
-
-        }
-
-    }
 }
