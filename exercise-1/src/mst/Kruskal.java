@@ -6,7 +6,6 @@ import java.util.TreeSet;
 import ext.UnionFind;
 import graph.Edge;
 import graph.EdgeListGraph;
-import graph.Vertex;
 
 public class Kruskal {
 
@@ -24,10 +23,6 @@ public class Kruskal {
         return mstEdgeList;
     }
 
-    public UnionFind<Integer> getVerticeSet() {
-        return verticeSet;
-    }
-
     public void calcMinSpanningTree() {
         for (Edge edge : this.edgeList) {
             int a = edge.getVertexA().getVertexName();
@@ -36,13 +31,6 @@ public class Kruskal {
                 this.mstEdgeList.add(edge);
                 this.verticeSet.union(a, b);
             }
-        }
-    }
-
-    public void printEdgeList() {
-        for (Edge edge : this.edgeList) {
-            System.out.println(edge.getVertexA().getVertexName() + " " + edge.getWeight() + " "
-                    + edge.getVertexB().getVertexName());
         }
     }
 
