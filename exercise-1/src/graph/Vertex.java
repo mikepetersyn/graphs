@@ -1,6 +1,6 @@
 package graph;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex> {
 
     private int vertexName;
 
@@ -32,6 +32,16 @@ public class Vertex {
 
     public void setVertexColor(boolean vertexColor) {
         this.vertexColor = vertexColor;
+    }
+
+    @Override
+    public int compareTo(Vertex v) {
+        if (vertexName == v.vertexName) {
+            return 0;
+        } else if (vertexName > v.vertexName) {
+            return 1;
+        } else
+            return -1;
     }
 
 }

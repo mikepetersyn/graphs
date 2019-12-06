@@ -17,7 +17,7 @@ public class EdgeListScanner {
         this.importFile = new File(this.importPath);
     }
 
-    public EdgeListGraph scan() {
+    public EdgeListGraph scanNotWeighted() {
         EdgeListGraph edgeListGraph = new EdgeListGraph();
         {
             try {
@@ -37,4 +37,24 @@ public class EdgeListScanner {
         return edgeListGraph;
     }
 
+    public EdgeListGraph scanWeighted() {
+        EdgeListGraph edgeListGraph = new EdgeListGraph();
+        {
+            try {
+                scanner = new Scanner(this.importFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        int i = 0;
+        while (scanner.hasNextInt()) {
+            if (i == 0) {
+                edgeListGraph.setNumberVertices(scanner.nextInt());
+                i++;
+            }
+            edgeListGraph
+                    .addEdge(new Edge(new Vertex(scanner.nextInt()), scanner.nextInt(), new Vertex(scanner.nextInt())));
+        }
+        return edgeListGraph;
+    }
 }

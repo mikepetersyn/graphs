@@ -30,8 +30,6 @@ public class Graph implements GraphExporter {
         this.numberVertices = numberVertices;
     }
 
-    
-
     @Override
     public void setExportPath(String exportPath) {
         this.exportPath = exportPath;
@@ -71,9 +69,10 @@ public class Graph implements GraphExporter {
         }
 
         try {
-            if (this.isDirected){
+            if (this.isDirected) {
                 edgeSymbol = " -> ";
-            } else edgeSymbol = " -- ";
+            } else
+                edgeSymbol = " -- ";
 
             FileWriter writer = new FileWriter(filePath, false);
             writer.write(("Graph " + graphName + " { \n"));
@@ -87,5 +86,7 @@ public class Graph implements GraphExporter {
             e.printStackTrace();
         }
     }
+
+    // TODO: add method for exporting weighted graphs in dot format
 
 }
