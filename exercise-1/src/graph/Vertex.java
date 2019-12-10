@@ -103,15 +103,4 @@ public class Vertex {
     public ArrayList<Vertex> getAdjacentVertices() {
         return this.adjacentVertices;
     }
-
-    @Override
-    public int compareTo(Vertex v) {
-        if (vertexName == v.vertexName) {
-            return 0;
-        } else if (vertexName > v.vertexName) {
-            return 1;
-        } else
-            return -1;
-    }
-
 }
