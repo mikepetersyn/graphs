@@ -6,44 +6,32 @@ import java.util.TreeSet;
 import ext.UnionFind;
 import graph.Edge;
 import graph.EdgeListGraph;
-import graph.Vertex;
 
 public class Kruskal {
-    private TreeSet<Vertex> setToDrawFrom;
-    private TreeSet<Vertex> setToAddTo;
-    private UnionFind<Vertex> unionFind;
-    // is sorted by Weight after constructor call
+
+    private UnionFind<Integer> verticeSet;
     private ArrayList<Edge> edgeList;
     private ArrayList<Edge> mstEdgeList;
 
-    public void printEdgeList() {
-        for (Edge edge : this.edgeList) {
-            System.out.println(edge.getVertexA().getVertexName() + " " + edge.getWeight() + " "
-                    + edge.getVertexB().getVertexName());
-        }
-    }
-
     public Kruskal(EdgeListGraph edgeListGraph) {
         this.edgeList = edgeListGraph.sortEdgeListByWeight(edgeListGraph.getEdgeList());
-        this.setToDrawFrom = new TreeSet<Vertex>(edgeListGraph.returnEdgeListAsVertexList(this.edgeList));
-        this.setToAddTo = new TreeSet<>();
-        this.unionFind = new UnionFind<Vertex>(this.setToAddTo);
+        this.verticeSet = new UnionFind<Integer>(new TreeSet<Integer>(edgeListGraph.returnEdgeListAsVertexNameList()));
+        this.mstEdgeList = new ArrayList<Edge>();
     }
 
-    public void doIt() {
-        // take each edge from edgeList, edges with lower weight first
+    public ArrayList<Edge> getMstEdgeList() {
+        return mstEdgeList;
+    }
+
+    public void calcMinSpanningTree() {
         for (Edge edge : this.edgeList) {
-            // check if both vertices from edge are already in unionFind
-            if (!(this.unionFind.inSameSet(edge.getVertexA(), edge.getVertexB()))) {
-                // - if not then add this edge to the spanning
-                // tree graph and add its vertices to the unionFind
+            int a = edge.getVertexA().getVertexName();
+            int b = edge.getVertexB().getVertexName();
+            if (!(this.verticeSet.inSameSet(a, b))) {
                 this.mstEdgeList.add(edge);
-                unionFind.addElement(edge.getVertexA());
-                unionFind.addElement(edge.getVertexB());
+                this.verticeSet.union(a, b);
             }
-            // - if yes then skip -> else would create loop
-
         }
-
     }
+
 }

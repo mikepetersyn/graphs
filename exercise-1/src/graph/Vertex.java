@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents a vertex in a graph
  */
-public class Vertex implements Comparable<Vertex> {
+public class Vertex {
 
     private int vertexName;
 

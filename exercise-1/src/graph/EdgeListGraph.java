@@ -49,20 +49,20 @@ public class EdgeListGraph extends Graph {
         this.edgeList.forEach(edge -> edge.swapVertices());
     }
 
-    public ArrayList<Vertex> returnEdgeListAsVertexList() {
-        ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
+    public ArrayList<Integer> returnEdgeListAsVertexNameList() {
+        ArrayList<Integer> vertexList = new ArrayList<Integer>();
         for (Edge edge : this.edgeList) {
-            vertexList.add(edge.getVertexA());
-            vertexList.add(edge.getVertexB());
+            vertexList.add(edge.getVertexA().getVertexName());
+            vertexList.add(edge.getVertexB().getVertexName());
         }
         return vertexList;
     }
 
-    public ArrayList<Vertex> returnEdgeListAsVertexList(ArrayList<Edge> edgeList) {
-        ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
+    public ArrayList<Integer> returnEdgeListAsVertexNameList(ArrayList<Edge> edgeList) {
+        ArrayList<Integer> vertexList = new ArrayList<Integer>();
         for (Edge edge : edgeList) {
-            vertexList.add(edge.getVertexA());
-            vertexList.add(edge.getVertexB());
+            vertexList.add(edge.getVertexA().getVertexName());
+            vertexList.add(edge.getVertexB().getVertexName());
         }
         return vertexList;
     }
