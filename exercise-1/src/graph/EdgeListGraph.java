@@ -27,6 +27,8 @@ public class EdgeListGraph extends Graph {
 
     private ArrayList<Edge> edgeList;
 
+    private int numSelfLoops;
+
     public ArrayList<Edge> getEdgeList() {
         return edgeList;
     }
@@ -74,4 +76,11 @@ public class EdgeListGraph extends Graph {
         return edgeList;
     }
 
+    public void incrementNumSelfLoops() {
+        this.numSelfLoops += 1;
+    }
+
+    public int getNumSelfLoops() {
+        return this.numSelfLoops;
+    }
 }

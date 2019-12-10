@@ -1,16 +1,19 @@
+import java.util.ArrayList;
+
 import graph.*;
 import mst.Kruskal;
+import search.BreadthFirst;
 
 public class Main {
 
     public static void main(String args[]) {
 
-        final String EXPORTPATH = "/home/mike/graphs/exercise-1/exports/";
-        final String IMPORTPATH = "/home/mikep/code_local/graphs/exercise-1/files/primkruskal.txt";
+        final String EXPORTPATH = "/home/mikep/code_local/graphs/exercise-1/exports/";
+        final String IMPORTPATH = "/home/mikep/code_local/graphs/exercise-1/files/search.txt";
 
-        EdgeListScanner primkrustal = new EdgeListScanner(IMPORTPATH);
+        EdgeListScanner directed = new EdgeListScanner(IMPORTPATH);
 
-        EdgeListGraph edgeListGraph = primkrustal.scanWeighted();
+        EdgeListGraph edgeListGraph = directed.scanDirected();
         edgeListGraph.setExportPath(EXPORTPATH);
 
         // EdgeListGraph inverseEdgeListGraph = new
@@ -26,13 +29,14 @@ public class Main {
         // AdjacenceMatrixGraph(edgeListGraph);
         // adjacenceMatrixGraph.setExportPath(EXPORTPATH);
 
-        // AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph,
-        // true);
-        // adjacenceListGraph.setExportPath(EXPORTPATH);
-
+        AdjacenceListGraph adjacenceListGraph = new AdjacenceListGraph(edgeListGraph, true);
+        adjacenceListGraph.setExportPath(EXPORTPATH);
+        BreadthFirst bfs = new BreadthFirst(adjacenceListGraph);
+        bfs.doIt(0);
+        ArrayList<Vertex> bfsTree = bfs.getAl();
         // adjacenceListGraph.exportGraph(adjacenceListGraph.convertToEdgeList());
-        Kruskal kruskal = new Kruskal(edgeListGraph);
-        kruskal.printEdgeList();
+        // Kruskal kruskal = new Kruskal(edgeListGraph);
+        // kruskal.printEdgeList();
 
     }
 }
