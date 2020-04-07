@@ -1,11 +1,13 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Represents a vertex in a graph
  */
-public class Vertex {
+public class Vertex implements Cloneable {
 
     private int vertexName;
 
@@ -20,6 +22,13 @@ public class Vertex {
     private ArrayList<Vertex> adjacentVertices;
 
     private final Integer INFINITY;
+
+    /**
+     * This field yields the value needed for computing a DFS on a graph @see
+     * search.{@link search.DepthFirst}. Does not need any non-default
+     * initialization.
+     */
+    private int finalDistance;
 
     public Vertex(int vertexName) {
         this.INFINITY = Integer.MAX_VALUE;
@@ -102,5 +111,41 @@ public class Vertex {
 
     public ArrayList<Vertex> getAdjacentVertices() {
         return this.adjacentVertices;
+    }
+
+    @Override
+    public Vertex clone() {
+        Vertex clone = null;
+        try {
+            clone = (Vertex) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+        return clone;
+    }
+
+    public int getFinalDistance() {
+        return finalDistance;
+    }
+
+    public void setFinalDistance(int finalDistance) {
+        this.finalDistance = finalDistance;
+    }
+
+    // two vertices are equal if their names (integer) are equal
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Vertex other = (Vertex) o;
+        if (getVertexName() != other.getVertexName())
+            return false;
+        return true;
+    }
+
+    public int hashCode() {
+        return getVertexName();
     }
 }

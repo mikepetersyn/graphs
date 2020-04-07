@@ -1,10 +1,12 @@
 package search;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import graph.AdjacenceListGraph;
+import graph.EdgeListGraph;
 import graph.Vertex;
 
 public class BreadthFirst {
@@ -13,8 +15,14 @@ public class BreadthFirst {
 
     private ArrayList<Vertex> al;
 
-    public BreadthFirst(AdjacenceListGraph alg) {
+    private HashSet<Vertex> vl;
+
+    private EdgeListGraph elg;
+
+    public BreadthFirst(AdjacenceListGraph alg, EdgeListGraph elg) {
         this.al = alg.getAdjacenceList();
+        this.vl = elg.getVertexList();
+        this.elg = elg;
         this.vq = new LinkedList<>();
     }
 
@@ -22,20 +30,30 @@ public class BreadthFirst {
         return al;
     }
 
-    // FIXME: Problem with not referencing original vertices
-    // references within adjacentVertices must be referencing the
-    // the same objects as in the adjacence list!!!
+    public void doItFull(int startIndex) {
+        Vertex test;
+        int i = startIndex;
+        do {
+            this.doIt(i);
+            test = elg.findUncolored(this.vl);
+            if (test != null)
+                i = test.getVertexName();
+        } while (elg.findUncolored(this.vl) != null);
+    }
+
+    // TODO: bfs search does not restart after queue has been emptied (but unvisited
+    // vertices are left)
     public void doIt(int startIndex) {
         // declare Vertex v
         Vertex u;
         // add vertex of adjacence list at index to queue
-        if ((startIndex <= this.al.size()) && (startIndex >= 0)) {
+        if ((startIndex <= this.al.size()) && (startIndex > 0)) {
             // set distance of starting vertex to 0
-            this.al.get(startIndex).setDistance(0);
-            this.vq.add(this.al.get(startIndex));
+            this.al.get(startIndex - 1).setDistance(0);
+            this.vq.add(this.al.get(startIndex - 1));
             // loop while queue is not empty
             while (this.vq.peek() != null) {
-                // poll head of queue into v
+                // poll head of queue into u
                 u = this.vq.poll();
                 // go for every vertex that is adjacent to u
                 for (Vertex v : u.getAdjacentVertices()) {

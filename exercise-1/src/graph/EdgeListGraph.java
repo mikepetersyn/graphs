@@ -1,6 +1,7 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import mst.SortByEdgeWeight;
 
@@ -8,24 +9,49 @@ public class EdgeListGraph extends Graph {
 
     public EdgeListGraph() {
         this.edgeList = new ArrayList<>();
+        this.vertexList = new HashSet<Vertex>();
         super.isDirected = false;
     }
 
     public EdgeListGraph(boolean isDirected) {
         this.edgeList = new ArrayList<>();
+        this.vertexList = new HashSet<Vertex>();
         super.isDirected = isDirected;
     }
 
     public EdgeListGraph(ArrayList<Edge> edgeList) {
         this.edgeList = edgeList;
+        this.vertexList = new HashSet<Vertex>();
     }
 
     public EdgeListGraph(ArrayList<Edge> edgeList, boolean isDirected) {
         this.edgeList = edgeList;
+        this.vertexList = new HashSet<Vertex>();
         super.isDirected = isDirected;
     }
 
     private ArrayList<Edge> edgeList;
+    private HashSet<Vertex> vertexList;
+
+    public boolean containsVertex(Vertex v) {
+        return this.vertexList.contains(v);
+    }
+
+    public Vertex findVertexByName(Integer name) {
+        return this.vertexList.stream().filter(v -> name.equals(v.getVertexName())).findFirst().orElse(null);
+    }
+
+    // returns the first found uncolored vertex within the verticelist or null if
+    // there is no uncolored vertex
+    public Vertex findUncolored() {
+        return this.vertexList.stream().filter(v -> false == v.getVertexColor()).findFirst().orElse(null);
+    }
+
+    // returns the first found uncolored vertex within the verticelist or null if
+    // there is no uncolored vertex
+    public Vertex findUncolored(HashSet<Vertex> vl) {
+        return vl.stream().filter(v -> false == v.getVertexColor()).findFirst().orElse(null);
+    }
 
     private int numSelfLoops;
 
@@ -42,6 +68,16 @@ public class EdgeListGraph extends Graph {
     }
 
     public void addEdge(Edge e) {
+        if (this.containsVertex(e.getVertexA())) {
+            e.setVertexA(this.findVertexByName(e.getVertexA().getVertexName()));
+        } else {
+            vertexList.add(e.getVertexA());
+        }
+        if (this.containsVertex(e.getVertexB())) {
+            e.setVertexB(this.findVertexByName(e.getVertexB().getVertexName()));
+        } else {
+            vertexList.add(e.getVertexB());
+        }
         edgeList.add(e);
     }
 
@@ -82,5 +118,9 @@ public class EdgeListGraph extends Graph {
 
     public int getNumSelfLoops() {
         return this.numSelfLoops;
+    }
+
+    public HashSet<Vertex> getVertexList() {
+        return vertexList;
     }
 }
