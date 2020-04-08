@@ -41,8 +41,6 @@ public class BreadthFirst {
         } while (elg.findUncolored(this.vl) != null);
     }
 
-    // TODO: bfs search does not restart after queue has been emptied (but unvisited
-    // vertices are left)
     public void doIt(int startIndex) {
         // declare Vertex v
         Vertex u;
