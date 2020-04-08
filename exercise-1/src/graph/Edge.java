@@ -135,10 +135,15 @@ public class Edge {
         Vertex tmp = this.vertexA;
         this.vertexA = this.vertexB;
         this.vertexB = tmp;
-        // if (this.isDirected) {
-        // this.orientation = new ArrayList<Vertex>(2);
-        // this.orientation.add(vertexA);
-        // this.orientation.add(vertexB);
-        // }
+    }
+
+    // checks if the two passed Vertices are within the Edge
+    // returns true if both vertices are within the edge
+    // returns false if not
+    public boolean containsVerticePair(Vertex u, Vertex v) {
+        if ((u.equals(this.vertexA) && v.equals(this.vertexB)) || (u.equals(this.vertexB) && v.equals(this.vertexA))) {
+            return true;
+        } else
+            return false;
     }
 }
