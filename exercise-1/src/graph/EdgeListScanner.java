@@ -88,7 +88,12 @@ public class EdgeListScanner {
                 edgeListGraph.setNumberVertices(scanner.nextInt());
                 i++;
             }
-            edgeListGraph.addEdge(new Edge(new Vertex(scanner.nextInt()), new Vertex(scanner.nextInt())));
+            Vertex vertexA = new Vertex(scanner.nextInt());
+            Vertex vertexB = new Vertex(scanner.nextInt());
+            if (vertexA.getVertexName() == vertexB.getVertexName())
+                edgeListGraph.incrementNumSelfLoops();
+
+            edgeListGraph.addEdge(new Edge(vertexA, vertexB, true));
         }
         return edgeListGraph;
     }
@@ -101,8 +106,14 @@ public class EdgeListScanner {
                 edgeListGraph.setNumberVertices(scanner.nextInt());
                 i++;
             }
-            edgeListGraph
-                    .addEdge(new Edge(new Vertex(scanner.nextInt()), scanner.nextInt(), new Vertex(scanner.nextInt())));
+            Vertex vertexA = new Vertex(scanner.nextInt());
+            int edgeWeight = scanner.nextInt();
+            Vertex vertexB = new Vertex(scanner.nextInt());
+
+            if (vertexA.getVertexName() == vertexB.getVertexName())
+                edgeListGraph.incrementNumSelfLoops();
+
+            edgeListGraph.addEdge(new Edge(vertexA, edgeWeight, vertexB, true));
         }
         return edgeListGraph;
     }
