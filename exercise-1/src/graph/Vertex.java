@@ -19,6 +19,8 @@ public class Vertex implements Cloneable {
 
     private int distance;
 
+    private int key;
+
     private ArrayList<Vertex> adjacentVertices;
 
     private final Integer INFINITY;
@@ -35,7 +37,16 @@ public class Vertex implements Cloneable {
         this.vertexName = vertexName;
         this.vertexColor = false;
         this.distance = INFINITY;
+        this.setKey(INFINITY);
         this.adjacentVertices = new ArrayList<>();
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
     public Vertex(int vertexName, boolean vertexColor) {
@@ -43,6 +54,7 @@ public class Vertex implements Cloneable {
         this.vertexName = vertexName;
         this.vertexColor = vertexColor;
         this.distance = INFINITY;
+        this.setKey(INFINITY);
         this.adjacentVertices = new ArrayList<>();
     }
 
@@ -52,6 +64,7 @@ public class Vertex implements Cloneable {
         this.vertexColor = vertexColor;
         this.predecessor = predecessor;
         this.distance = INFINITY;
+        this.setKey(INFINITY);
         this.adjacentVertices = new ArrayList<>();
     }
 
@@ -70,6 +83,7 @@ public class Vertex implements Cloneable {
         this.vertexColor = vertexColor;
         this.predecessor = predecessor;
         this.distance = distance;
+        this.setKey(INFINITY);
         this.adjacentVertices = new ArrayList<>();
     }
 
