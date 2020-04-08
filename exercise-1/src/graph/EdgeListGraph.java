@@ -41,6 +41,15 @@ public class EdgeListGraph extends Graph {
         return this.vertexList.stream().filter(v -> name.equals(v.getVertexName())).findFirst().orElse(null);
     }
 
+    public Edge findEdgeByVertices(Vertex u, Vertex v) {
+        Edge result = null;
+        for (Edge e : this.edgeList) {
+            if (e.containsVerticePair(u, v))
+                result = e;
+        }
+        return result;
+    }
+
     // returns the first found uncolored vertex within the verticelist or null if
     // there is no uncolored vertex
     public Vertex findUncolored() {
