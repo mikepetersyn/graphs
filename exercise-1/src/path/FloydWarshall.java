@@ -1,35 +1,34 @@
 package path;
 
+import graph.AdjacenceMatrixGraph;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-class FloydWarshall {
+public class FloydWarshall {
 
-    private static final int INFINITY = Integer.MAX_VALUE;
+    private AdjacenceMatrixGraph adjacenceMatrixGraph;
+    private ArrayList<ArrayList<Integer>> adjacenceMatrix = new ArrayList<ArrayList<Integer>>();
 
-    private ArrayList<List<Integer>> myList;
-
-    public FloydWarshall() {
-        this.myList = new ArrayList<>();
-        this.init();
+    public FloydWarshall(AdjacenceMatrixGraph adjacenceMatrixGraph) {
+        this.adjacenceMatrixGraph = adjacenceMatrixGraph;
+        this.adjacenceMatrix = adjacenceMatrixGraph.getAdjacenceMatrix();
     }
 
-    private void init() {
-        List<Integer> rowOne = Arrays.asList(0, 3, 8, INFINITY, -4);
-        List<Integer> rowTwo = Arrays.asList(INFINITY, 0, INFINITY, 1, 7);
-        List<Integer> rowThree = Arrays.asList(INFINITY, 4, 0, INFINITY, INFINITY);
-        List<Integer> rowFour = Arrays.asList(2, INFINITY, -5, 0, INFINITY);
-        List<Integer> rowFive = Arrays.asList(INFINITY, INFINITY, INFINITY, 6, 0);
-        this.myList.add(rowOne);
-        this.myList.add(rowTwo);
-        this.myList.add(rowThree);
-        this.myList.add(rowFour);
-        this.myList.add(rowFive);
+    public void doIt() {
+        int d_ij;
+        int d_ik;
+        int d_kj;
+        int len = this.adjacenceMatrix.size();
+        for (int k = 0; k < len; k++) {
+            for (int i = 0; i < len; i++) {
+                for (int j = 0; j < len; j++) {
+                    d_ij = this.adjacenceMatrix.get(i).get(j);
+                    d_ik = this.adjacenceMatrix.get(i).get(k);
+                    d_kj = this.adjacenceMatrix.get(k).get(j);
+                    if (d_ij > (d_ik + d_kj))
+                        this.adjacenceMatrix.get(i).set(j, d_ik + d_kj);
+                }
+            }
+        }
     }
-    /**
-     * public void doIt() { int n = this.myList.size(); ArrayList<List<Integer>> d =
-     * this.myList; for (int k = 1; k < n; k++) { d = } }
-     */
 
 }
