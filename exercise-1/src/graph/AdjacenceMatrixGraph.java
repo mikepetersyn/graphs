@@ -23,6 +23,12 @@ public class AdjacenceMatrixGraph extends Graph {
         super.isDirected = isDirected;
     }
 
+    public AdjacenceMatrixGraph(EdgeListGraph elg, boolean isDirected, boolean isWeighted) {
+        init(elg.getNumberVertices());
+        convertFromEdgeList(elg.getEdgeList(), isWeighted);
+        super.isDirected = isDirected;
+    }
+
     private void init(int numberVertices) {
         for (int i = 0; i < numberVertices; i++) {
             this.adjacenceMatrix.add(new ArrayList<>());
@@ -36,6 +42,16 @@ public class AdjacenceMatrixGraph extends Graph {
         for (Edge e : el) {
             this.adjacenceMatrix.get(e.getVertexA().getVertexName() - 1).set(e.getVertexB().getVertexName() - 1, 1);
         }
+    }
+
+    private void convertFromEdgeList(List<Edge> el, boolean isWeighted) {
+        if (isWeighted) {
+            for (Edge e : el) {
+                this.adjacenceMatrix.get(e.getVertexA().getVertexName() - 1).set(e.getVertexB().getVertexName() - 1,
+                        e.getWeight());
+            }
+        } else
+            this.convertFromEdgeList(el);
     }
 
     public ArrayList<Edge> convertToEdgeList() {
