@@ -47,6 +47,7 @@ public class Prim {
                 if (vPriorityQueue.contains(v) && w < v.getKey()) {
                     v.setPredecessor(u);
                     v.setKey(w);
+                    // remove and add vertex in order to update the Queue
                     vPriorityQueue.remove(v);
                     vPriorityQueue.add(v);
                 }
