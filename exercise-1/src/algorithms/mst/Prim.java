@@ -1,10 +1,12 @@
-package mst;
+package algorithms.mst;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
-import graph.AdjacenceListGraph;
-import graph.EdgeListGraph;
-import graph.Vertex;
+
+import graph.primitives.Vertex;
+import graph.primitives.VertexKeyComparator;
+import graph.structures.AdjacenceListGraph;
+import graph.structures.EdgeListGraph;
 
 public class Prim {
 

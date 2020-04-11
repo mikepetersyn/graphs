@@ -1,4 +1,4 @@
-package search;
+package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
-import graph.AdjacenceListGraph;
-import graph.Vertex;
+import graph.primitives.Vertex;
+import graph.structures.AdjacenceListGraph;
 
 public class DepthFirst {
 
@@ -42,15 +42,16 @@ public class DepthFirst {
      * adjacence-list-graph n-times and putting each into the map (n = number of
      * vertices) as a value (vertices are keys).
      */
-    private void initDfsForest() {
+    private void initDFSForest() {
         // check for null adjacence list
         if (al != null) {
-            // prepare iterator for deep copy
-            Iterator<Vertex> iterator = this.al.iterator();
+
             // initialize map with number of vertices
             this.dfsForest = new HashMap<>(this.al.size());
             // do this for every vertice in the adjacence list
             for (Vertex u : this.al) {
+                // prepare iterator for deep copy
+                Iterator<Vertex> iterator = this.al.iterator();
                 // init new copy of adjacence list
                 ArrayList<Vertex> treeList = new ArrayList<>(this.al.size());
                 // deep copy original adjacence list
@@ -79,9 +80,9 @@ public class DepthFirst {
      * computes a tree out of a forest for a certain vertex from the original
      * adjacence graph (i.e. list)
      */
-    public void getDFSForest() {
+    public void calcDFSForest() {
         // create a dict and an entry for every vertex in the graph
-        initDfsForest();
+        initDFSForest();
         // for each list in the dict do the search and begin with the vertex
         // that is the key (have to get the index)
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : this.dfsForest.entrySet()) {
@@ -104,7 +105,7 @@ public class DepthFirst {
             // set fields of u only if u not visited
             if (!u.getVertexColor()) {
                 time += 1;
-                u.setDistance(time);
+                u.setKey(time);
                 u.setVertexColor(true);
                 // check adjacent vertices of u
                 for (Vertex v : u.getAdjacentVertices()) {
@@ -119,8 +120,8 @@ public class DepthFirst {
             } else {
                 // break down the stack and set final distances
                 vs.pop();
-                if (u.getFinalDistance() == 0)
-                    u.setFinalDistance(time += 1);
+                if (u.getFinalKey() == 0)
+                    u.setFinalKey(time += 1);
             }
         }
     }

@@ -1,11 +1,11 @@
-package mst;
+package algorithms.mst;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
 
 import ext.UnionFind;
-import graph.Edge;
-import graph.EdgeListGraph;
+import graph.primitives.Edge;
+import graph.structures.EdgeListGraph;
 
 public class Kruskal {
 

@@ -1,8 +1,8 @@
-package path;
+package algorithms.path;
 
-import graph.Edge;
-import graph.EdgeListGraph;
-import graph.Vertex;
+import graph.primitives.Edge;
+import graph.primitives.Vertex;
+import graph.structures.EdgeListGraph;
 
 public class BellmanFord {
 
@@ -34,7 +34,7 @@ public class BellmanFord {
         // checking if given starting index is within range
         if ((0 < startVertex) && (startVertex <= len)) {
             // init
-            this.edgeListGraph.findVertexByName(startVertex).setDistance(0);
+            this.edgeListGraph.findVertexByName(startVertex).setKey(0);
             // start algorithm
             for (int i = startVertex; i < (startVertex + len); i++) {
                 j = i - (len * iterationThreshold(i, len + 1));
@@ -44,8 +44,8 @@ public class BellmanFord {
                         // setting vertices u and v for this operation
                         u = e.getVertexA();
                         v = e.getVertexB();
-                        if (v.getDistance() > u.getDistance() + e.getWeight()) {
-                            v.setDistance(u.getDistance() + e.getWeight());
+                        if (v.getKey() > u.getKey() + e.getWeight()) {
+                            v.setKey(u.getKey() + e.getWeight());
                             v.setPredecessor(u);
                         }
                     }
@@ -54,7 +54,7 @@ public class BellmanFord {
             }
             // condition testing cycles with negative weights
             for (Edge e : this.edgeListGraph.getEdgeList()) {
-                if (e.getVertexB().getDistance() > (e.getVertexA().getDistance() + e.getWeight())) {
+                if (e.getVertexB().getKey() > (e.getVertexA().getKey() + e.getWeight())) {
                     System.out.println("Stop. There is a cycle with negative weights");
                     break;
                 }

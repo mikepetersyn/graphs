@@ -1,20 +1,17 @@
-package graph;
+package graph.primitives;
 
-import java.util.ArrayList;
-
-// TODO: avoid unnecessary initializing of default values in constructor
 /**
  * Represents an edge within a graph
  */
 public class Edge {
 
     /**
-     * First vertex object of the edge.
+     * First {@link graph.primitives.Vertex} object of the edge.
      */
     private Vertex vertexA;
 
     /**
-     * Second vertex object of the edge.
+     * Second {@link graph.primitives.Vertex} object of the edge.
      */
     private Vertex vertexB;
 
@@ -24,19 +21,13 @@ public class Edge {
     private int weight;
 
     /**
-     * Indicates if an edge is directed or not.
+     * Indicates if an edge is directed or not. The actual direction is given from
+     * {@link #vertexA} to {@link #vertexB}.
      */
     private boolean isDirected;
 
     /**
-     * Indicates the orientation of the edge, if it is directed. The first element
-     * represents the starting vertex and the second elements represents the ending
-     * vertex.
-     */
-    // private ArrayList<Vertex> orientation;
-
-    /**
-     * Creates a non-weighted edge with two vertex objects @see graph.Vertex.
+     * Creates a non-weighted edge with two {@link graph.primitives.Vertex} objects
      * 
      * @param vertexA first vertex object
      * @param vertexB second vertex object
@@ -49,7 +40,7 @@ public class Edge {
     }
 
     /**
-     * Creates a weighted edge with two vertex objects @see graph.Vertex.
+     * Creates a weighted edge with two {@link graph.primitives.Vertex} objects.
      * 
      * @param vertexA first vertex object
      * @param weight  weight of the edge
@@ -63,10 +54,10 @@ public class Edge {
     }
 
     /**
-     * Creates a non-weighted edge with two vertex objects @see graph.Vertex. If
-     * declared, this edge is also directed and the first vertex object represents
-     * the starting vertex, whereas the second vertex object represents the ending
-     * vertex.
+     * Creates a non-weighted edge with two {@link graph.primitives.Vertex} objects.
+     * If declared, this edge is also directed and the first vertex object
+     * represents the starting vertex, whereas the second vertex object represents
+     * the ending vertex.
      * 
      * @param vertexA    first vertex object
      * @param weight     weight of the edge
@@ -77,15 +68,10 @@ public class Edge {
         this.vertexA = vertexA;
         this.vertexB = vertexB;
         this.isDirected = isDirected;
-        // if (this.isDirected) {
-        // this.orientation = new ArrayList<Vertex>(2);
-        // this.orientation.add(vertexA);
-        // this.orientation.add(vertexB);
-        // }
     }
 
     /**
-     * Creates a weighted edge with two vertex objects @see graph.Vertex. If
+     * Creates a weighted edge with two {@link graph.primitives.Vertex} objects. If
      * declared, this edge is also directed and the first vertex object represents
      * the starting vertex, whereas the second vertex object represents the ending
      * vertex.
@@ -100,11 +86,6 @@ public class Edge {
         this.vertexB = vertexB;
         this.weight = weight;
         this.isDirected = isDirected;
-        // if (this.isDirected) {
-        // this.orientation = new ArrayList<Vertex>(2);
-        // this.orientation.add(vertexA);
-        // this.orientation.add(vertexB);
-        // }
     }
 
     public Vertex getVertexA() {
@@ -131,19 +112,38 @@ public class Edge {
         this.weight = weight;
     }
 
+    public boolean isDirected() {
+        return isDirected;
+    }
+
+    public void setDirected(boolean isDirected) {
+        this.isDirected = isDirected;
+    }
+
+    /**
+     * Swaps the two {@link graph.primitives.Vertex} objects {@link #vertexA} and
+     * {@link #vertexA} within the edge.
+     */
     public void swapVertices() {
         Vertex tmp = this.vertexA;
         this.vertexA = this.vertexB;
         this.vertexB = tmp;
     }
 
-    // checks if the two passed Vertices are within the Edge
-    // returns true if both vertices are within the edge
-    // returns false if not
+    /**
+     * Checks, if the two passed {@link graph.primitives.Vertex} objects are within
+     * the edge.
+     * 
+     * @param u {@link #vertexA} of the edge to be searched for
+     * @param v {@link #vertexB} of the edge to be searched for
+     * @return true, if and only if the edge contains the two passed vertices with
+     *         the given arrangement.
+     */
     public boolean containsVerticePair(Vertex u, Vertex v) {
         if ((u.equals(this.vertexA) && v.equals(this.vertexB)) || (u.equals(this.vertexB) && v.equals(this.vertexA))) {
             return true;
         } else
             return false;
     }
+
 }

@@ -1,6 +1,8 @@
-package graph;
+package graph.util;
 
 import java.util.ArrayList;
+
+import graph.primitives.Edge;
 
 public interface GraphExporter {
 

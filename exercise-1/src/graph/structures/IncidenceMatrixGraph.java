@@ -1,6 +1,9 @@
-package graph;
+package graph.structures;
 
 import java.util.ArrayList;
+
+import graph.primitives.Edge;
+import graph.primitives.Vertex;
 
 public class IncidenceMatrixGraph extends Graph {
 

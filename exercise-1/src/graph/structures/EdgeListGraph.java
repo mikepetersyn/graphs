@@ -1,9 +1,11 @@
-package graph;
+package graph.structures;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import mst.SortByEdgeWeight;
+import graph.primitives.Edge;
+import graph.primitives.EdgeWeightComparator;
+import graph.primitives.Vertex;
 
 public class EdgeListGraph extends Graph {
 
@@ -113,11 +115,11 @@ public class EdgeListGraph extends Graph {
     }
 
     public void sortEdgeListByWeight() {
-        this.edgeList.sort(new SortByEdgeWeight());
+        this.edgeList.sort(new EdgeWeightComparator());
     }
 
     public ArrayList<Edge> sortEdgeListByWeight(ArrayList<Edge> edgeList) {
-        edgeList.sort(new SortByEdgeWeight());
+        edgeList.sort(new EdgeWeightComparator());
         return edgeList;
     }
 

@@ -1,11 +1,11 @@
-package path;
+package algorithms.path;
 
 import java.util.PriorityQueue;
 
-import graph.AdjacenceListGraph;
-import graph.EdgeListGraph;
-import graph.Vertex;
-import mst.VertexKeyComparator;
+import graph.primitives.Vertex;
+import graph.primitives.VertexKeyComparator;
+import graph.structures.AdjacenceListGraph;
+import graph.structures.EdgeListGraph;
 
 public class Dijkstra {
 

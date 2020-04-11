@@ -1,8 +1,12 @@
-package graph;
+package graph.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import graph.primitives.Edge;
+import graph.primitives.Vertex;
+import graph.structures.EdgeListGraph;
 
 public class EdgeListScanner {
 

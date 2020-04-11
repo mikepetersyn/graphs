@@ -1,7 +1,8 @@
-package path;
+package algorithms.path;
 
-import graph.AdjacenceMatrixGraph;
 import java.util.ArrayList;
+
+import graph.structures.AdjacenceMatrixGraph;
 
 public class FloydWarshall {
 

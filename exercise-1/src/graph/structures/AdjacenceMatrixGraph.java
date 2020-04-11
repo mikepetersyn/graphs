@@ -1,16 +1,27 @@
-package graph;
+package graph.structures;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import graph.primitives.Edge;
+import graph.primitives.Vertex;
+
+/**
+ * Implements an adjacence matrix as data structure for a given graph.
+ */
 public class AdjacenceMatrixGraph extends Graph {
 
+    /**
+     * An ArrayList of ArrayLists with Integer values, each representing a vertex
+     * name.
+     */
     private ArrayList<ArrayList<Integer>> adjacenceMatrix = new ArrayList<ArrayList<Integer>>();
 
-    public ArrayList<ArrayList<Integer>> getAdjacenceMatrix() {
-        return adjacenceMatrix;
-    }
-
+    /**
+     * Creates a graph with an adjacence matrix as underlying data structure. It
+     * needs to get the information on vertices and edges by passing and edge list
+     * resp. {@link graph.structures.EdgeListGraph}.
+     */
     public AdjacenceMatrixGraph(EdgeListGraph elg) {
         init(elg.getNumberVertices());
         convertFromEdgeList(elg.getEdgeList());
@@ -18,20 +29,44 @@ public class AdjacenceMatrixGraph extends Graph {
 
     }
 
+    /**
+     * Creates a directed graph with an adjacence matrix as underlying data
+     * structure. It needs to get the information on vertices and edges by passing
+     * and edge list resp. {@link graph.structures.EdgeListGraph}.
+     */
     public AdjacenceMatrixGraph(EdgeListGraph elg, boolean isDirected) {
         init(elg.getNumberVertices());
         convertFromEdgeList(elg.getEdgeList());
         super.isDirected = isDirected;
-
     }
 
+    /**
+     * Creates a directed and weighted graph with an adjacence matrix as underlying
+     * data structure. It needs to get the information on vertices and edges by
+     * passing and edge list resp. {@link graph.structures.EdgeListGraph}.
+     */
     public AdjacenceMatrixGraph(EdgeListGraph elg, boolean isDirected, boolean isWeighted) {
         init(elg.getNumberVertices());
         convertFromEdgeList(elg.getEdgeList(), isWeighted);
         super.isDirected = isDirected;
-
     }
 
+    public ArrayList<ArrayList<Integer>> getAdjacenceMatrix() {
+        return adjacenceMatrix;
+    }
+
+    public void setAdjacenceMatrix(ArrayList<ArrayList<Integer>> adjacenceMatrix) {
+        this.adjacenceMatrix = adjacenceMatrix;
+    }
+
+    /**
+     * Initialized the adjacence matrix by filling the first ArrayList with as many
+     * ArrayLists as the graph vields distinct vertices. Each of these lists within
+     * the first level list are filled with as many dummy vertices as the graph
+     * yields distinct vertices.
+     * 
+     * @param numberVertices the number of vertices the given graph yields
+     */
     private void init(int numberVertices) {
         for (int i = 0; i < numberVertices; i++) {
             this.adjacenceMatrix.add(new ArrayList<>());
@@ -47,18 +82,27 @@ public class AdjacenceMatrixGraph extends Graph {
         }
     }
 
+    /**
+     * Converts an edge list structure into a adjacence matrix structure.
+     * 
+     * @param el the edge list to be converted
+     */
     public void convertFromEdgeList(List<Edge> el) {
         for (Edge e : el) {
             this.adjacenceMatrix.get(e.getVertexA().getVertexName() - 1).set(e.getVertexB().getVertexName() - 1, 1);
         }
     }
 
-    // if there is an edge(i,j) then w(i,j)
-    // if there no edge(i,j) then
-    // if (i,i) then 0 (zero weight on (non-existent) edge between a vertex and
-    // itself)
-    // INFINITY else (infinite weight on non existent edges between two distinct
-    // vertices)
+    /**
+     * Converts an edge list structure with weights into a adjacence matrix
+     * structure. Normal edges are denoted by the weight between two distinct
+     * vertices (if edge(i,j) then w(i,j)). The mapping of the same vertex is
+     * denoted by the value 0 (if edge(i,i) then w(0)). Non-existend edges are
+     * denoted by the INFINITY value.
+     * 
+     * @param el         edge list to be converted
+     * @param isWeighted boolean value indicating, that the graph is weighted
+     */
     public void convertFromEdgeList(List<Edge> el, boolean isWeighted) {
         if (isWeighted) {
             int i;
@@ -74,6 +118,11 @@ public class AdjacenceMatrixGraph extends Graph {
             this.convertFromEdgeList(el);
     }
 
+    /**
+     * Converts the adjacence matrix back into an edge list structure.
+     * 
+     * @return the edge list.
+     */
     public ArrayList<Edge> convertToEdgeList() {
         ArrayList<Edge> edgeList = new ArrayList<>();
         for (int i = 0; i < this.adjacenceMatrix.size(); i++) {

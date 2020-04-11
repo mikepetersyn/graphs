@@ -1,10 +1,13 @@
-package graph;
+package graph.structures;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import graph.primitives.Edge;
+import graph.util.GraphExporter;
 
 public class Graph implements GraphExporter {
 
