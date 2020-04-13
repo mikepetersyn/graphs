@@ -2,12 +2,13 @@ package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
 import graph.primitives.Vertex;
 import graph.structures.AdjacenceListGraph;
+import graph.structures.EdgeListGraph;
+import graph.util.EdgeListScanner;
 
 public class DepthFirst {
 
@@ -26,14 +27,42 @@ public class DepthFirst {
     private Map<Vertex, ArrayList<Vertex>> dfsForest;
 
     /**
+     * ArrayList holding vertices in topological order after a DFS has been
+     * executed.
+     */
+    private ArrayList<Vertex> topSort;
+
+    /**
+     * EdgeListScanner is used for generating real (deep) copies of adjacence lists
+     * within the initialization of the DFSForest (each list needs distinct vertice
+     * objects and each of these objects corresponding adjacent vertices)
+     */
+    private EdgeListScanner els;
+
+    /**
+     * Flag used for indicating if we want to compute SCC on this graph
+     */
+    private boolean scc_flag;
+
+    /**
      * Creates a DepthFirst object that is used to compute a depth first search on a
      * given graph passed in form of an adjacene list.
      * 
      * @param alg Adjacence List Graph that is to be computet
      */
-    public DepthFirst(AdjacenceListGraph alg) {
+    public DepthFirst(AdjacenceListGraph alg, EdgeListScanner els) {
         this.al = alg.getAdjacenceList();
+        this.els = els;
         this.vs = new Stack<>();
+        this.topSort = new ArrayList<>();
+    }
+
+    public ArrayList<Vertex> getTopSort() {
+        return topSort;
+    }
+
+    public void setTopSort(ArrayList<Vertex> topSort) {
+        this.topSort = topSort;
     }
 
     /**
@@ -45,21 +74,20 @@ public class DepthFirst {
     private void initDFSForest() {
         // check for null adjacence list
         if (al != null) {
-
+            Vertex i;
+            Vertex c;
             // initialize map with number of vertices
             this.dfsForest = new HashMap<>(this.al.size());
-            // do this for every vertice in the adjacence list
+            // do this for every vertex in the adjacence list
             for (Vertex u : this.al) {
-                // prepare iterator for deep copy
-                Iterator<Vertex> iterator = this.al.iterator();
-                // init new copy of adjacence list
-                ArrayList<Vertex> treeList = new ArrayList<>(this.al.size());
-                // deep copy original adjacence list
-                while (iterator.hasNext()) {
-                    treeList.add(iterator.next().clone());
+                if (this.scc_flag) {
+                    EdgeListGraph elg_inv_tmp = els.scan();
+                    elg_inv_tmp.inverseAllEdges();
+                    this.dfsForest.put(u, new AdjacenceListGraph(elg_inv_tmp).getAdjacenceList());
+                } else {
+                    this.dfsForest.put(u, new AdjacenceListGraph(els.scan()).getAdjacenceList());
                 }
-                // add vertex and corresponding treelist to dict
-                this.dfsForest.put(u, treeList);
+
             }
         } else
             System.out.println("Adjacence List must be initialized in order to initialize the forest.");
@@ -83,8 +111,8 @@ public class DepthFirst {
     public void calcDFSForest() {
         // create a dict and an entry for every vertex in the graph
         initDFSForest();
-        // for each list in the dict do the search and begin with the vertex
-        // that is the key (have to get the index)
+        // for each list in the dict do a DFS beginning with the vertex
+        // that is the key for each entry
         for (Map.Entry<Vertex, ArrayList<Vertex>> entry : this.dfsForest.entrySet()) {
             this.doit(entry.getValue(), entry.getKey().getVertexName() - 1);
         }
@@ -96,8 +124,9 @@ public class DepthFirst {
         // init
         int time = 0;
         Vertex u;
-        // select random vertex u and add to stack
-        this.vs.add(al.get(0));
+        Vertex w;
+        // select vertex at given index and add to stack
+        this.vs.add(al.get(index));
         // while stack not empty
         while (!this.vs.empty()) {
             // peek element on stack (u) and
@@ -120,10 +149,24 @@ public class DepthFirst {
             } else {
                 // break down the stack and set final distances
                 vs.pop();
-                if (u.getFinalKey() == 0)
-                    u.setFinalKey(time += 1);
+                // get Vertex from original adjacence list
+                w = this.al.get(u.getVertexName() - 1);
+                // set final keys for topological sorting
+                if (w.getFinalKey() == 0) {
+                    w.setFinalKey(time += 1);
+                    topSort.add(0, w);
+                }
+
             }
         }
+    }
+
+    public boolean isScc_flag() {
+        return scc_flag;
+    }
+
+    public void setScc_flag(boolean scc_flag) {
+        this.scc_flag = scc_flag;
     }
 
 }
