@@ -15,6 +15,8 @@ public class Graph implements GraphExporter {
 
     protected boolean isDirected;
 
+    protected boolean isWeighted;
+
     private String exportPath;
 
     public Graph() {
@@ -52,6 +54,7 @@ public class Graph implements GraphExporter {
         String filePath = this.exportPath + graphName + ".gv";
         File tmpDir = new File(filePath);
         String edgeSymbol = "";
+        String graphStyle = "";
 
         while (nameNotUnique) {
 
@@ -74,14 +77,23 @@ public class Graph implements GraphExporter {
         try {
             if (this.isDirected) {
                 edgeSymbol = " -> ";
-            } else
+                graphStyle = "digraph";
+            } else {
                 edgeSymbol = " -- ";
+                graphStyle = "graph";
+            }
 
             FileWriter writer = new FileWriter(filePath, false);
-            writer.write(("Graph " + graphName + " { \n"));
+
+            writer.write((graphStyle + " " + graphName + " { \n"));
             for (int i = 0; i < edgeList.size(); i++) {
                 writer.write(edgeList.get(i).getVertexA().getVertexName() + edgeSymbol
-                        + edgeList.get(i).getVertexB().getVertexName() + " \n");
+                        + edgeList.get(i).getVertexB().getVertexName());
+                if (this.isWeighted) {
+                    writer.write(" [label=" + edgeList.get(i).getWeight() + "];" + "\n");
+                } else {
+                    writer.write("\n");
+                }
             }
             writer.write("}");
             writer.close();
@@ -89,7 +101,4 @@ public class Graph implements GraphExporter {
             e.printStackTrace();
         }
     }
-
-    // TODO: add method for exporting weighted graphs in dot format
-
 }
