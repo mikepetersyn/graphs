@@ -81,6 +81,8 @@ public class EdgeListScanner {
                 edgeListGraph = scanSimple(edgeListGraph);
                 break;
         }
+        // reset the scanner for reusability
+        setScanner(getImportFile());
         return edgeListGraph;
     }
 
@@ -103,7 +105,7 @@ public class EdgeListScanner {
     }
 
     private EdgeListGraph scanWeighted(EdgeListGraph edgeListGraph) {
-        edgeListGraph = new EdgeListGraph();
+        edgeListGraph = new EdgeListGraph(this.isDirected, this.isWeighted);
         int i = 0;
         while (scanner.hasNextInt()) {
             if (i == 0) {
@@ -143,7 +145,7 @@ public class EdgeListScanner {
     }
 
     private EdgeListGraph scanWeightedDirected(EdgeListGraph edgeListGraph) {
-        edgeListGraph = new EdgeListGraph(this.isDirected);
+        edgeListGraph = new EdgeListGraph(this.isDirected, this.isWeighted);
 
         int i = 0;
         while (scanner.hasNextInt()) {
