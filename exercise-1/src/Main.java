@@ -83,17 +83,9 @@ public class Main {
                 BellmanFord bellmanFord = new BellmanFord(bellmannFord_elg);
                 bellmanFord.doit(1);
 
-                // EXPORT TEST
-                // EdgeListScanner export_scanner = new EdgeListScanner(
-                // "/home/mikep/code_local/graphs/exercise-1/files/dijkstra.txt", true, true);
-                // EdgeListGraph export_test_elg = export_scanner.scan();
-                // export_test_elg.setExportPath(EXPORTPATH);
-                // export_test_elg.exportGraph(dijkstra_elg.getEdgeList());
-
                 // Spider Export Test
                 EdgeListScanner spider_scanner = new EdgeListScanner(
                                 "/home/mikep/code_local/graphs/exercise-1/files/spider.txt", true, true);
-
                 EdgeListGraph spider_elg = spider_scanner.scan();
                 spider_elg.setExportPath(EXPORTPATH);
                 spider_elg.exportGraph(spider_elg.getEdgeList());
