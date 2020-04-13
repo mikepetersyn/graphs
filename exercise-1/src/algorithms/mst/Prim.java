@@ -14,12 +14,10 @@ public class Prim {
     private EdgeListGraph edgeListGraph;
     private VertexKeyComparator vKeyComparator;
     private PriorityQueue<Vertex> vPriorityQueue;
-    private ArrayList<Vertex> minimalSpanningTree;
 
     public Prim(AdjacenceListGraph adjacenceListGraph, EdgeListGraph edgeListGraph) {
         this.adjacenceListGraph = adjacenceListGraph;
         this.edgeListGraph = edgeListGraph;
-        this.minimalSpanningTree = new ArrayList<>();
         this.vKeyComparator = new VertexKeyComparator();
         this.vPriorityQueue = new PriorityQueue<>(this.edgeListGraph.getNumberVertices(), this.vKeyComparator);
     }
