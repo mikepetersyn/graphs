@@ -167,6 +167,10 @@ public class Vertex implements Cloneable {
         return this.adjacentVertices;
     }
 
+    public void setAdjacentVertices(ArrayList<Vertex> adjacentVertices) {
+        this.adjacentVertices = adjacentVertices;
+    }
+
     @Override
     public Vertex clone() {
         Vertex clone = null;
@@ -196,4 +200,5 @@ public class Vertex implements Cloneable {
     public int hashCode() {
         return getVertexName();
     }
+
 }

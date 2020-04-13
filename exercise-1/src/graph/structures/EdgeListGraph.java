@@ -13,12 +13,21 @@ public class EdgeListGraph extends Graph {
         this.edgeList = new ArrayList<>();
         this.vertexList = new HashSet<Vertex>();
         super.isDirected = false;
+        super.isWeighted = false;
     }
 
     public EdgeListGraph(boolean isDirected) {
         this.edgeList = new ArrayList<>();
         this.vertexList = new HashSet<Vertex>();
         super.isDirected = isDirected;
+        super.isWeighted = false;
+    }
+
+    public EdgeListGraph(boolean isDirected, boolean isWeighted) {
+        this.edgeList = new ArrayList<>();
+        this.vertexList = new HashSet<Vertex>();
+        super.isDirected = isDirected;
+        super.isWeighted = isWeighted;
     }
 
     public EdgeListGraph(ArrayList<Edge> edgeList) {
@@ -41,6 +50,10 @@ public class EdgeListGraph extends Graph {
 
     public Vertex findVertexByName(Integer name) {
         return this.vertexList.stream().filter(v -> name.equals(v.getVertexName())).findFirst().orElse(null);
+    }
+
+    public Vertex findVertexByName(Integer name, HashSet<Vertex> vertexList) {
+        return vertexList.stream().filter(v -> name.equals(v.getVertexName())).findFirst().orElse(null);
     }
 
     public Edge findEdgeByVertices(Vertex u, Vertex v) {
