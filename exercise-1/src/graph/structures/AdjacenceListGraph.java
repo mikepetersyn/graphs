@@ -1,6 +1,7 @@
 package graph.structures;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import graph.primitives.Edge;
 import graph.primitives.Vertex;
@@ -23,8 +24,8 @@ public class AdjacenceListGraph extends Graph {
      */
     public AdjacenceListGraph(EdgeListGraph elg) {
         this.adjacenceList = new ArrayList<>();
-        initAdjacenceList(elg.getNumberVertices());
-        convertFromEdgeList(elg.getEdgeList(), elg.getNumSelfLoops());
+        initAdjacenceList(elg.getVertexList());
+        convertFromEdgeList(elg.getEdgeList());
         super.isDirected = false;
     }
 
@@ -35,8 +36,8 @@ public class AdjacenceListGraph extends Graph {
      */
     public AdjacenceListGraph(EdgeListGraph elg, boolean isDirected) {
         this.adjacenceList = new ArrayList<>();
-        initAdjacenceList(elg.getNumberVertices());
-        convertFromEdgeList(elg.getEdgeList(), elg.getNumSelfLoops());
+        initAdjacenceList(elg.getVertexList());
+        convertFromEdgeList(elg.getEdgeList());
         super.isDirected = isDirected;
     }
 
@@ -49,12 +50,19 @@ public class AdjacenceListGraph extends Graph {
     }
 
     /**
-     * Initializes the adjacence list by adding as many dummy vertices as the graph
-     * yields distinct vertices.
+     * Initializes the adjacence list by adding vertices from the vertex list of the
+     * edge list graph
      */
-    public void initAdjacenceList(int numberOfVertices) {
-        while (this.adjacenceList.size() < numberOfVertices)
-            this.adjacenceList.add(new Vertex(0));
+    public void initAdjacenceList(HashSet<Vertex> vertexList) {
+        this.adjacenceList.addAll(vertexList);
+    }
+
+    /**
+     * Initializes the adjacence list by adding vertices from the vertex list of the
+     * edge list graph
+     */
+    public void initAdjacenceList(ArrayList<Vertex> adjacenceList, HashSet<Vertex> vertexList) {
+        adjacenceList.addAll(vertexList);
     }
 
     /**
@@ -64,14 +72,13 @@ public class AdjacenceListGraph extends Graph {
      * @param edgeList     edge list to be converted into a adjacence list
      * @param numSelfLoops
      */
-    private void convertFromEdgeList(ArrayList<Edge> edgeList, int numSelfLoops) {
+    private void convertFromEdgeList(ArrayList<Edge> edgeList) {
         for (Edge e : edgeList) {
             if (!this.adjacenceList.contains(e.getVertexA())) {
                 this.adjacenceList.set(e.getVertexA().getVertexName() - 1, e.getVertexA());
             }
             this.adjacenceList.get(e.getVertexA().getVertexName() - 1).addAdjacentVertex(e.getVertexB());
         }
-
     }
 
     /**
@@ -89,5 +96,4 @@ public class AdjacenceListGraph extends Graph {
         }
         return edgeList;
     }
-
 }
